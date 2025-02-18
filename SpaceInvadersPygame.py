@@ -11,8 +11,7 @@ player = player_helper.Player("player.png", 600, 675, 100, 100, 0)
 
 player_shooting = False
 
-enemie = player_helper.Enemy(400, 100, 25, 25, constants_si.GREEN)
-enemies = [enemie]
+game_handler.load_level_1()
  
 done = False
  
@@ -31,18 +30,20 @@ while not done:
     
     player.remove_expired_lasers()
 
+    game_handler.remove_dead_enemies()
+
     player.handle_movement_input()
 
     player.move_x()
 
-    player.handle_hits(enemies)
+    player.handle_hits(game_handler.enemies)
 
     if player_shooting == True:
         player.shoot()
     
     screen.fill(constants_si.BACKGROUND_COLOR)
 
-    for enemy in enemies:
+    for enemy in game_handler.enemies:
         enemy.draw(screen)
 
     player.draw_and_move_lasers(screen)
