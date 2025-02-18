@@ -1,16 +1,18 @@
 import pygame
- 
-BLACK = (0, 0, 0)
-WHITE = (255, 255, 255)
-GREEN = (0, 255, 0)
-RED = (255, 0, 0)
+import player_helper
+import game_handler
+import constants_si
  
 pygame.init()
  
-size = (1200, 800)
-screen = pygame.display.set_mode(size)
- 
-pygame.display.set_caption("Space Invaders clone")
+screen = game_handler.create_screen([constants_si.SCREEN_X, constants_si.SCREEN_Y])
+
+player = player_helper.Player("PlayerShip.png", 600, 675, 100, 100, 0)
+
+player_shooting = False
+
+enemie = player_helper.Enemy(400, 100, 25, 25, constants_si.GREEN)
+enemies = [enemie]
  
 done = False
  
@@ -20,11 +22,35 @@ while not done:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             done = True
+        if event.type == pygame.KEYDOWN:
+            if event.key == pygame.K_w:
+                player_shooting = True
+        if event.type == pygame.KEYUP:
+            if event.key == pygame.K_w:
+                player_shooting = False
     
-    screen.fill(BLACK)
+    player.remove_expired_lasers()
+
+    player.handle_movement_input()
+
+    player.move_x()
+
+    player.handle_hits(enemies)
+
+    if player_shooting == True:
+        player.shoot()
+    
+    screen.fill(constants_si.BACKGROUND_COLOR)
+
+    for enemy in enemies:
+        enemy.draw(screen)
+
+    player.draw_and_move_lasers(screen)
+    
+    screen.blit(player.image, [player.x, player.y])
 
     pygame.display.flip()
- 
-    clock.tick(60)
+
+    clock.tick(constants_si.FRAME_RATE)
 
 pygame.quit()

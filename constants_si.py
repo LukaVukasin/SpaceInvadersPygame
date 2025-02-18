@@ -1,0 +1,9 @@
+SCREEN_X = 1200
+SCREEN_Y = 800
+SCREEN_TITLE = "Space_invaders_pygame"
+BLACK = (0, 0, 0)
+WHITE = (255, 255, 255)
+GREEN = (0, 255, 0)
+RED = (255, 0, 0)
+BACKGROUND_COLOR = (8, 8, 33)
+FRAME_RATE = 60
