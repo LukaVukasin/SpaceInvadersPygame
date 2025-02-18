@@ -36,7 +36,7 @@ class Player:
             self.speed_x = 0
             
     def check_screen_collision(self):
-        if self.x + self.width > constants_si.SCREEN_X:
+        if self.x + self.width >= constants_si.SCREEN_X:
             return [False, True]
         elif self.x <= 0:
             return [True, False]
@@ -50,7 +50,7 @@ class Player:
             self.attack_time_checker = pygame.time.get_ticks()
         
     def add_laser(self):
-        laser = Laser(self.x + 35, self.y + 35, "green_laser.png", 30, 30, 10)
+        laser = Laser(self.x + 48, self.y + 35, "green_laser.png", 5, 20, 10)
         self.lasers.append(laser)
 
     def draw_and_move_lasers(self, screen):
@@ -66,7 +66,7 @@ class Player:
             for laser in self.lasers:
                 y_check = (enemy.y + enemy.height) >= laser.y and enemy.y <= laser.y
                 if y_check == True:
-                    x_check = enemy.x <= laser.x and enemy.x + enemy.width >= laser.x
+                    x_check = enemy.x <= laser.x + laser.width and enemy.x + enemy.width >= laser.x
                     if x_check == True:
                         enemy.color = constants_si.RED
                         self.expired_lasers.append(laser)
