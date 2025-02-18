@@ -7,7 +7,7 @@ pygame.init()
  
 screen = game_handler.create_screen([constants_si.SCREEN_X, constants_si.SCREEN_Y])
 
-player = player_helper.Player("player_ship.png", 600, 675, 100, 100, 0)
+player = player_helper.Player("player.png", 600, 675, 100, 100, 0)
 
 player_shooting = False
 
