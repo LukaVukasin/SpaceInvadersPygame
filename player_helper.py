@@ -68,7 +68,7 @@ class Player:
                 if y_check == True:
                     x_check = enemy.x <= laser.x + laser.width and enemy.x + enemy.width >= laser.x
                     if x_check == True:
-                        enemy.color = constants_si.RED
+                        enemy.alive = False
                         self.expired_lasers.append(laser)
 
     def remove_expired_lasers(self):
@@ -93,13 +93,15 @@ class Laser:
         screen.blit(self.image, [self.x, self.y])
 
 class Enemy:
-    def __init__(self, x, y, width, height, color):
+    def __init__(self, x, y, width, height, path):
         self.x = x
         self.y = y
         self.width = width
         self.height = height
-        self.color = color
+        self.image = pygame.image.load(path).convert_alpha()
+        self.image = pygame.transform.scale(self.image, [width, height])
+        self.alive = True
 
     def draw(self, screen):
-        pygame.draw.rect(screen, self.color, [self.x, self.y, self.width, self.height])
+        screen.blit(self.image, [self.x, self.y])
 
