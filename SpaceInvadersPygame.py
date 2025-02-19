@@ -26,11 +26,14 @@ while not done:
                 player_shooting = True
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_w:
-                player_shooting = True
+                player_shooting = False
     
     player.remove_expired_lasers()
 
     game_handler.remove_dead_enemies()
+
+    for enemy in game_handler.enemies:
+        enemy.check_image()
 
     player.handle_movement_input()
 
