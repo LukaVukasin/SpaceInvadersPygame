@@ -32,6 +32,9 @@ while not done:
 
     game_handler.remove_dead_enemies()
 
+    for enemy in game_handler.enemies:
+        enemy.check_image()
+
     player.handle_movement_input()
 
     player.move_x()

@@ -68,8 +68,13 @@ class Player:
                 if y_check == True:
                     x_check = enemy.x <= laser.x + laser.width and enemy.x + enemy.width >= laser.x
                     if x_check == True:
-                        enemy.alive = False
                         self.expired_lasers.append(laser)
+                        enemy.health = enemy.health - 1
+                        enemy.health_changed = True
+                        enemy.image = pygame.image.load("green_enemy_hit.png").convert_alpha()
+                        enemy.image = pygame.transform.scale(enemy.image, [enemy.width, enemy.height])
+                        if enemy.health <= 0:
+                            enemy.alive = False
 
     def remove_expired_lasers(self):
         for laser in self.expired_lasers:
@@ -93,7 +98,7 @@ class Laser:
         screen.blit(self.image, [self.x, self.y])
 
 class Enemy:
-    def __init__(self, x, y, width, height, path):
+    def __init__(self, x, y, width, height, path, health):
         self.x = x
         self.y = y
         self.width = width
@@ -101,7 +106,20 @@ class Enemy:
         self.image = pygame.image.load(path).convert_alpha()
         self.image = pygame.transform.scale(self.image, [width, height])
         self.alive = True
+        self.health = health
+        self.health_changed = False
 
     def draw(self, screen):
         screen.blit(self.image, [self.x, self.y])
+
+    def check_image(self):
+        if self.health == 3 and self.health_changed == True:
+            self.image = pygame.image.load("green_enemy.png").convert_alpha()
+            self.image = pygame.transform.scale(self.image, [self.width, self.height])
+        elif self.health == 2 and self.health_changed == True:
+            self.image = pygame.image.load("green_enemy_2hp.png").convert_alpha()
+            self.image = pygame.transform.scale(self.image, [self.width, self.height])
+        elif self.health == 1 and self.health_changed == True:
+            self.image = pygame.image.load("green_enemy_1hp.png").convert_alpha()
+            self.image = pygame.transform.scale(self.image, [self.width, self.height])
 

@@ -7,10 +7,10 @@ enemies = []
 def load_level_1():
     for i in range(10):
         if i == 0:
-            enemy = player_helper.Enemy(20, 20, 75, 75, "green_enemy.png")
+            enemy = player_helper.Enemy(20, 20, 75, 75, "green_enemy.png", 3)
             enemies.append(enemy)
         else:
-            enemy = player_helper.Enemy(enemies[i - 1].x + 100, 20 , 75, 75, "green_enemy.png")
+            enemy = player_helper.Enemy(enemies[i - 1].x + 100, 20 , 75, 75, "green_enemy.png", 3)
             enemies.append(enemy)
 
 def remove_dead_enemies():
