@@ -26,7 +26,7 @@ while not done:
                 player_shooting = True
         if event.type == pygame.KEYUP:
             if event.key == pygame.K_w:
-                player_shooting = True
+                player_shooting = False
     
     player.remove_expired_lasers()
 
